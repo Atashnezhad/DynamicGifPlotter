@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="GifPlotter",
-    version="0.1.0",
+    version="0.1.1",
     author="Amin Atashnezhad",
     author_email="atashnezhad1@gmail.com",
     description="A library to create and arrange plots and generate GIFs.",
