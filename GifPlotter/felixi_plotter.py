@@ -8,12 +8,24 @@ from typing import Dict, Any
 
 class FlexiPlotter:
     def __init__(self, payload: Dict[str, Any], dataframe: pd.DataFrame):
+        """
+        Initialize the class instance with the given payload and dataframe.
+
+        :param payload: A dictionary containing the payload information.
+        :param dataframe: A pandas DataFrame that represents the data.
+
+        """
         self.payload = payload
         self.df = dataframe
         self.fig = None
         self.axes = []
 
     def create_figure(self):
+        """
+        Create a figure with the specified size and layout.
+
+        :return: None
+        """
         fig_size = self.payload.get('figure_size', (16, 12))
         self.fig, self.axes = plt.subplots(nrows=len(self.payload['layout']),
                                            ncols=max(len(row) for row in self.payload['layout']),
@@ -21,6 +33,22 @@ class FlexiPlotter:
         self.fig.tight_layout(pad=3.0)  # Adjust padding as needed
 
     def arrange_plots(self, num_rows):
+        """
+
+        :param num_rows: The number of rows in the plot grid.
+        :return: None
+
+        This method arranges plots in a grid based on the specified number of rows. It takes a parameter `num_rows` indicating the desired number of rows in the grid. It internally uses the `payload` attribute of the object to access the plot data.
+
+        The method iterates over the plot data and calculates the row and column positions for each plot based on the current index. If the `layout` attribute of the object has a length greater than 1, it uses a 2D array of axes to position the plots, otherwise it uses a 1D array. The `plot_data` method is called to plot each plot on the corresponding axis.
+
+        After plotting all the plots, any unused subplots are hidden by setting their axis to 'off'. This is done by iterating over the range from the length of the plot data to the total number of axes in the grid, and calculating the row and column positions for each subplot based on the current index.
+
+        Example usage:
+            obj = MyClass()
+            obj.arrange_plots(3)  # Arranges the plots in a grid with 3 rows
+
+        """
         plot_data = self.payload['plots']
 
         for i, plot_info in enumerate(plot_data):
@@ -37,6 +65,21 @@ class FlexiPlotter:
             ax.axis('off')
 
     def plot_data(self, ax: plt.Axes, plot_info: Dict[str, Any], num_rows: int):
+        """
+        Method to plot data on a given axes.
+
+        :param ax: The matplotlib axes to plot the data on.
+        :param plot_info: A dictionary containing information about the plot. It should have the following keys:
+            - 'type': The type of plot to be created. Can be 'line', 'scatter', or 'bar'.
+            - 'x': The column in the dataframe to be used as the x-axis.
+            - 'y': The column in the dataframe to be used as the y-axis.
+            - 'color' (optional): The color of the plot. If not provided, a default color is used.
+            - 'title' (optional): The title of the plot. If not provided, no title is set.
+            - 'xlabel' (optional): The label for the x-axis. If not provided, the x-column name is used.
+            - 'ylabel' (optional): The label for the y-axis. If not provided, the y-column name is used.
+        :param num_rows: The number of rows to be plotted from the dataframe.
+        :return: None
+        """
         plot_type = plot_info['type']
         x_col = plot_info['x']
         y_col = plot_info['y']
@@ -58,6 +101,13 @@ class FlexiPlotter:
         ax.set_ylim(self.df[y_col].min(), self.df[y_col].max())
 
     def create_gif(self, output_path, duration=0.5):
+        """
+        Create a GIF from a set of images.
+
+        :param output_path: The path where the GIF will be saved.
+        :param duration: The duration (in seconds) between each frame in the GIF. Defaults to 0.5 seconds.
+        :return: None
+        """
         images = []
         total_rows = len(self.df)
         step = max(1, total_rows // 20)  # Create 20 frames or less
