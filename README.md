@@ -1,3 +1,5 @@
+
+[![Downloads](https://static.pepy.tech/badge/GifPlotter)](https://pepy.tech/project/GifPlotter)
 # FlexiPlotter
 
 `FlexiPlotter` is a flexible data visualization library that allows you to create various types of plots (line, scatter, bar) from a pandas DataFrame based on a structured payload. It can handle multiple subplots arranged in a custom layout and can even generate animated GIFs from the plot data over time.
