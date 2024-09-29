@@ -1,6 +1,7 @@
 /build/
 /dist/
 *.xml/
+.pypirc
 
 /.idea/
 /GifPlotter.egg-info/dependency_links.txt
