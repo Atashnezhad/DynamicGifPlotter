@@ -1,0 +1,11 @@
+/build/
+/dist/
+*.xml/
+
+/.idea/
+/GifPlotter.egg-info/dependency_links.txt
+/GifPlotter.egg-info/PKG-INFO
+/GifPlotter.egg-info/requires.txt
+/GifPlotter.egg-info/SOURCES.txt
+/GifPlotter.egg-info/top_level.txt
+/GifPlotter/output/animation.gif
